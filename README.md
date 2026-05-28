@@ -2,6 +2,9 @@
 
 # Maximum Likelihood Reinforcement Learning
 
+⭐ **ICML 2026 Oral Presentation**<br>
+🏆 **Best Paper Award at ICLR 2026 SPOT Workshop**
+
 </div>
 
 This is the official PyTorch implementation of our paper "<strong>Maximum Likelihood Reinforcement Learning</strong>" by Fahim Tajwar*, Guanning Zeng*, Yueer Zhou, Yuda Song, Daman Arora, Yiding Jiang, Jeff Schneider, Ruslan Salakhutdinov, Haiwen Feng, and Andrea Zanette.
@@ -173,13 +176,14 @@ The codebase for the algorithm is built on top of [verl](https://github.com/verl
 If you find this repository useful for your research, please consider citing our paper:
 
 ```
-@misc{tajwar2026maximumlikelihoodreinforcementlearning,
-      title={Maximum Likelihood Reinforcement Learning}, 
-      author={Fahim Tajwar and Guanning Zeng and Yueer Zhou and Yuda Song and Daman Arora and Yiding Jiang and Jeff Schneider and Ruslan Salakhutdinov and Haiwen Feng and Andrea Zanette},
-      year={2026},
-      eprint={2602.02710},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2602.02710}, 
+@InProceedings{tajwar2026maxrl,
+  title     = {Maximum Likelihood Reinforcement Learning},
+  author    = {Tajwar, Fahim and Zeng, Guanning and Zhou, Yueer and Song, Yuda
+               and Arora, Daman and Jiang, Yiding and Schneider, Jeff and Salakhutdinov, Ruslan
+               and Feng, Haiwen and Zanette, Andrea},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research},
+  year      = {2026},
+  publisher = {PMLR},
 }
 ```

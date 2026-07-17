@@ -205,7 +205,9 @@ def main():
         return
 
     if args.all:
-        tasks = registered
+        # 'composite' is a meta-dataset (combines other tasks) and cannot be
+        # instantiated with defaults
+        tasks = [t for t in registered if t != "composite"]
     elif args.tasks:
         tasks = [t.strip() for t in args.tasks.split(",") if t.strip()]
         unknown = [t for t in tasks if t not in DATASETS]

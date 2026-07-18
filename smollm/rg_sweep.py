@@ -144,18 +144,22 @@ def generate_hf(args):
     return generate, render
 
 
-def score_task(dataset, entries, completions_per_prompt, pass_threshold):
+def score_task(dataset, entries, completions_per_prompt, pass_threshold,
+               examples_per_task=5):
     """Score all completions; return (metrics, examples).
 
     Scores the extracted <answer> span when present, otherwise the raw
     completion (many reasoning-gym scorers handle full text). Alongside the
-    aggregate metrics it captures the first passing and first failing
-    completion seen, which are far more diagnostic than arbitrary samples.
+    aggregate metrics it captures up to `examples_per_task` passing and up to
+    `examples_per_task` failing completions (in generation order), which are
+    far more diagnostic than arbitrary samples. Either list may be empty — a
+    task with no successes yields `successes == []`, and one the model never
+    fails yields `failures == []`; callers must not assume either is non-empty.
     """
     pass_rates = []
     all_scores = []
-    first_success = None
-    first_failure = None
+    successes = []
+    failures = []
     for entry, completions in zip(entries, completions_per_prompt):
         n_pass = 0
         for completion in completions:
@@ -166,18 +170,21 @@ def score_task(dataset, entries, completions_per_prompt, pass_threshold):
             except Exception:
                 score = 0.0
             all_scores.append(score)
-            record = {
-                "question": entry["question"],
-                "extracted_answer": answer,
-                "score": score,
-                "completion": completion,
-            }
+            # A completion passes iff its score reaches the threshold; the count
+            # (n_pass) is always tallied, but we only *store* the first
+            # `examples_per_task` of each bucket to keep examples.json small.
             if score >= pass_threshold - 1e-9:
                 n_pass += 1
-                if first_success is None:
-                    first_success = record
-            elif first_failure is None:
-                first_failure = record
+                bucket = successes
+            else:
+                bucket = failures
+            if len(bucket) < examples_per_task:
+                bucket.append({
+                    "question": entry["question"],
+                    "extracted_answer": answer,
+                    "score": score,
+                    "completion": completion,
+                })
         pass_rates.append(n_pass / len(completions))
 
     n = len(pass_rates)
@@ -190,7 +197,7 @@ def score_task(dataset, entries, completions_per_prompt, pass_threshold):
         "trainable_frac": sum(1 for r in pass_rates if 0 < r < 1) / n if n else 0.0,
         "pass_rates": pass_rates,
     }
-    examples = {"first_success": first_success, "first_failure": first_failure}
+    examples = {"successes": successes, "failures": failures}
     return metrics, examples
 
 
@@ -215,6 +222,8 @@ def main():
     parser.add_argument("--max-model-len", type=int, default=4096)
     parser.add_argument("--gpu-memory-utilization", type=float, default=0.85)
     parser.add_argument("--pass-threshold", type=float, default=1.0)
+    parser.add_argument("--examples-per-task", type=int, default=5,
+                        help="max passing and max failing completions saved per task")
     parser.add_argument("--out", default="rg_sweep_results")
     args = parser.parse_args()
 
@@ -284,7 +293,8 @@ def main():
                   f"(as the model sees it):\n{'-' * 70}\n{full_prompt}\n{'=' * 70}")
             completions = generate(conversations)
             metrics, task_examples = score_task(
-                dataset, entries, completions, args.pass_threshold
+                dataset, entries, completions, args.pass_threshold,
+                args.examples_per_task
             )
             results[task] = metrics
             examples[task] = {"full_prompt": full_prompt, **task_examples}

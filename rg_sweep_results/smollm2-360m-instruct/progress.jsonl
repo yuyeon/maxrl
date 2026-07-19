@@ -1,0 +1,41 @@
+{"event": "start", "total": 105, "config": {"model": "HuggingFaceTB/SmolLM2-360M-Instruct", "backend": "vllm", "system_prompt": "default", "tasks": null, "all": true, "list": false, "size": 50, "samples": 32, "seed": 42, "temperature": 1.0, "top_p": 1.0, "max_new_tokens": 2048, "max_model_len": 4096, "gpu_memory_utilization": 0.85, "pass_threshold": 1.0, "examples_per_task": 5, "out": "rg_sweep_results/smollm2-360m-instruct"}}
+{"i": 1, "task": "ab", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 2, "task": "acre", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.04448773847349347, "pass_at_1": 0.016875, "pass_at_k": 0.34, "trainable_frac": 0.34}
+{"i": 3, "task": "advanced_geometry", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.010025, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 4, "task": "aiw", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.002805167470048414, "pass_at_1": 0.00125, "pass_at_k": 0.04, "trainable_frac": 0.04}
+{"i": 5, "task": "arc_1d", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0005084726059394074, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 6, "task": "arc_agi", "error": "VLLMValidationError: This model's maximum context length is 4096 tokens. However, you requested 0 output tokens and your prompt contains at least 4097 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=4097)"}
+{"i": 7, "task": "base_conversion", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.00020945978051961284, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 8, "task": "basic_arithmetic", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.007766179237156145, "pass_at_1": 0.00125, "pass_at_k": 0.04, "trainable_frac": 0.04}
+{"i": 9, "task": "bf", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 1.01537658304689e-06, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 10, "task": "binary_alternation", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.00199491580782189, "pass_at_1": 0.00125, "pass_at_k": 0.04, "trainable_frac": 0.04}
+{"i": 11, "task": "binary_matrix", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 12, "task": "bitwise_arithmetic", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.001875, "pass_at_1": 0.001875, "pass_at_k": 0.02, "trainable_frac": 0.02}
+{"i": 13, "task": "boxnet", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0008229166666666667, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 14, "task": "caesar_cipher", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 15, "task": "calendar_arithmetic", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.030416534476807255, "pass_at_1": 0.023125, "pass_at_k": 0.34, "trainable_frac": 0.34}
+{"i": 16, "task": "chain_sum", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.024558303823767304, "pass_at_1": 0.0125, "pass_at_k": 0.2, "trainable_frac": 0.2}
+{"i": 17, "task": "circuit_logic", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 18, "task": "codeio", "error": "VLLMValidationError: This model's maximum context length is 4096 tokens. However, you requested 0 output tokens and your prompt contains at least 4097 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=4097)"}
+{"i": 19, "task": "coin_flip", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0012082188644688644, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 20, "task": "color_cube_rotation", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.06259375, "pass_at_1": 0.053125, "pass_at_k": 0.7, "trainable_frac": 0.7}
+{"i": 21, "task": "complex_arithmetic", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0015356196600459246, "pass_at_1": 0.000625, "pass_at_k": 0.02, "trainable_frac": 0.02}
+{"i": 22, "task": "count_bits", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0013944803201581546, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 23, "task": "count_primes", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0005088089009508721, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 24, "task": "countdown", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.015125, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 25, "task": "course_schedule", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.005680145012076036, "pass_at_1": 0.00125, "pass_at_k": 0.04, "trainable_frac": 0.04}
+{"i": 26, "task": "cryptarithm", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.001425, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 27, "task": "decimal_arithmetic", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.000625, "pass_at_1": 0.000625, "pass_at_k": 0.02, "trainable_frac": 0.02}
+{"i": 28, "task": "decimal_chain_sum", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 29, "task": "dice", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 30, "task": "emoji_mystery", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.010059015520389531, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 31, "task": "family_relationships", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.0025, "pass_at_1": 0.0025, "pass_at_k": 0.08, "trainable_frac": 0.08}
+{"i": 32, "task": "figlet_font", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.023937500000000004, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 33, "task": "fraction_simplification", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.02106875, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 34, "task": "futoshiki", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.006694560990968886, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 35, "task": "game_of_life", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.04851875, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 36, "task": "game_of_life_halting", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 1.0, "pass_at_1": 1.0, "pass_at_k": 1.0, "trainable_frac": 0.0}
+{"i": 37, "task": "gcd", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.018329727116951813, "pass_at_1": 0.0025, "pass_at_k": 0.08, "trainable_frac": 0.08}
+{"i": 38, "task": "graph_color", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.00896875, "pass_at_1": 0.00625, "pass_at_k": 0.12, "trainable_frac": 0.12}
+{"i": 39, "task": "group_anagrams", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.004412500000000001, "pass_at_1": 0.0, "pass_at_k": 0.0, "trainable_frac": 0.0}
+{"i": 40, "task": "gsm_symbolic", "n_prompts": 50, "samples_per_prompt": 32, "mean_score": 0.02149375, "pass_at_1": 0.011875, "pass_at_k": 0.06, "trainable_frac": 0.06}

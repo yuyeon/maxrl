@@ -4,10 +4,11 @@
 set -e
 
 # ============ Configuration ============
-MODEL_PATH=/path/to/SmolLM2-360M-Instruct
-TRAIN_DATA=/path/to/gsm8k/train.parquet
-VAL_DATA=/path/to/gsm8k-platinum/test.parquet
-CHECKPOINT_DIR=/path/to/checkpoints
+MODEL_PATH=~/.cache/huggingface/hub/models--HuggingFaceTB--SmolLM2-360M-Instruct/snapshots/a10cc1512eabd3dde888204e902eca88bddb4951/
+TRAIN_DATA=$HOME/data/reasoning_gym/chain_sum/train.parquet
+VAL_DATA=$HOME/data/reasoning_gym/chain_sum/val.parquet
+CHECKPOINT_DIR=$HOME/checkpoints
+PROJECT_NAME=MaxRL_SmolLM-360M-chain_sum
 
 # Training hyperparameters
 ADVANTAGE_ESTIMATOR=maxrl
@@ -27,7 +28,7 @@ EXPERIMENT_NAME=${ADVANTAGE_ESTIMATOR}_${N_ROLLOUTS}rollouts
 
 # ============ Ray Setup ============
 ray stop --force 2>/dev/null || true
-ray start --head --num-gpus 8
+ray start --head --num-gpus 1
 ray status
 
 # ============ Training ============
@@ -39,14 +40,14 @@ python3 -m verl.trainer.main_ppo \
   algorithm.truncate_order=${TRUNCATE_ORDER} \
   data.train_files=${TRAIN_DATA} \
   data.val_files=${VAL_DATA} \
-  data.train_batch_size=256 \
+  data.train_batch_size=64 \
   data.filter_overlong_prompts=True \
   data.max_prompt_length=512 \
   data.max_response_length=${MAX_RESPONSE_LENGTH} \
   actor_rollout_ref.model.path=${MODEL_PATH} \
   actor_rollout_ref.actor.optim.lr=${LR} \
   actor_rollout_ref.actor.use_kl_loss=False \
-  actor_rollout_ref.actor.ppo_mini_batch_size=256 \
+  actor_rollout_ref.actor.ppo_mini_batch_size=64 \
   actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=64 \
   actor_rollout_ref.rollout.name=vllm \
   actor_rollout_ref.rollout.log_prob_micro_batch_size_per_gpu=64 \
@@ -68,7 +69,7 @@ python3 -m verl.trainer.main_ppo \
   trainer.experiment_name=${EXPERIMENT_NAME} \
   trainer.logger=['console','wandb'] \
   trainer.val_before_train=True \
-  trainer.n_gpus_per_node=8 \
+  trainer.n_gpus_per_node=1 \
   trainer.nnodes=1 \
   trainer.save_freq=100 \
   trainer.test_freq=100 \

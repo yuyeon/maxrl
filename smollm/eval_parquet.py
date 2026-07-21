@@ -78,22 +78,35 @@ def main():
             completions = []
             for sample in output.outputs:
                 score = float(compute_score(sample.text, ground_truth))
-                completions.append({"text": sample.text, "score": score})
+                # training zeroes rewards for completions that hit the length cap
+                # (zero_reward_on_max_response_length); mirror that so scores here
+                # are comparable to the training reward curve
+                truncated = sample.finish_reason == "length"
+                completions.append({
+                    "text": sample.text,
+                    "score": 0.0 if truncated else score,
+                    "raw_score": score,
+                    "truncated": truncated,
+                })
             scores = [c["score"] for c in completions]
             record = {
                 "source": row["_source"],
                 "index": int(row["extra_info"]["index"]),
-                "question": row["prompt"][0]["content"],
+                "question": row["prompt"][-1]["content"],
                 "ground_truth": ground_truth,
                 "completions": completions,
                 "mean_score": sum(scores) / len(scores),
                 "any_correct": max(scores) >= 1.0,
             }
             f.write(json.dumps(record) + "\n")
-            stats = per_source.setdefault(row["_source"], {"n": 0, "mean_score": 0.0, "pass_at_n": 0})
+            stats = per_source.setdefault(
+                row["_source"], {"n": 0, "mean_score": 0.0, "pass_at_n": 0, "truncated": 0, "samples": 0}
+            )
             stats["n"] += 1
             stats["mean_score"] += record["mean_score"]
             stats["pass_at_n"] += int(record["any_correct"])
+            stats["truncated"] += sum(c["truncated"] for c in completions)
+            stats["samples"] += len(completions)
 
     summary = {
         "model": args.model,
@@ -104,6 +117,7 @@ def main():
                 "n": s["n"],
                 "mean_score": s["mean_score"] / s["n"],
                 f"pass_at_{args.samples}": s["pass_at_n"] / s["n"],
+                "truncated_frac": s["truncated"] / s["samples"],
             }
             for src, s in per_source.items()
         },
@@ -116,5 +130,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
